@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150sdp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/rlNewsCard"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_marginHorizontal="@dimen/_5sdp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvImage"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/ivHeadlines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ivsample"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/cvImage"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:maxLines="2"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:includeFontPadding="false"
+            android:ellipsize="end"
+            android:text="OPM Rilis Video Penyanderaan Pilot Susi Air: Kami Tangkap karena Negara Tak Akui Papua Merdeka - Nasional Tempo"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"/>
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:maxLines="2"
+            android:includeFontPadding="false"
+            android:ellipsize="end"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="OPM Rilis Video Penyanderaan Pilot Susi Air: Kami Tangkap karena Negara Tak Akui Papua Merdeka - Nasional Tempo"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"/>
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:maxLines="2"
+            android:includeFontPadding="false"
+            android:ellipsize="end"
+            android:text="Arif dari detik.com"
+            android:textColor="@color/today_news_grey"
+            android:textSize="@dimen/_10ssp"/>
+    </LinearLayout>
+</RelativeLayout>

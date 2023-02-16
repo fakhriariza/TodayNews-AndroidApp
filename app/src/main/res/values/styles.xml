@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@color/today_news_orange</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/today_news_grey</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Chip.Choose" parent="Base.Widget.MaterialComponents.Chip">
+        <item name="android:checkable">true</item>
+
+        <item name="chipIconVisible">false</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+
+        <item name="checkedIcon">@drawable/ic_mtrl_chip_checked_black</item>
+
+        <item name="android:textColor">@drawable/menu_text_selector</item>
+
+        <item name="chipBackgroundColor">@drawable/menu_selector</item>
+        <item name="rippleColor">@color/mtrl_choice_chip_ripple_color</item>
+
+    </style>
+</resources>

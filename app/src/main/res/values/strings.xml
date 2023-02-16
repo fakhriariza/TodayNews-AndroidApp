@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TodayNews</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mainactivity_searchhintext">Cari berita terbaru disini</string>
+    <string name="chip_headlines">Headlines</string>
+    <string name="chip_detik">Detik</string>
+    <string name="chip_viva">Viva</string>
+    <string name="chip_cnn">CNN</string>
+    <string name="chip_cnbc">CNBC</string>
+    <string name="chip_tempo">Tempo</string>
+    <string name="chip_republika">Republika</string>
+    <string name="search_noticetext">Cari berita terbaru disini</string>
+    <string name="splash_text">Semua Berita dalam Satu Genggaman</string>
+</resources>

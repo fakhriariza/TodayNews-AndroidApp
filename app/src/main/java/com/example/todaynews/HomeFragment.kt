@@ -55,11 +55,7 @@ class HomeFragment : Fragment() {
             binding.rvHeadlines.layoutManager = layoutManagerHeadlines
             binding.rvHeadlines.adapter = headlinesDataAdapter
 
-            headlinesNewsAdapter = NewsHeadlinesDataAdapter(dataHeadlines)
-            val layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.rvNews.layoutManager = layoutManager
-            binding.rvNews.adapter = headlinesNewsAdapter
+            initHeadline()
         }
 
         menuChip.setOnCheckedStateChangeListener{ group, checkId ->
@@ -71,10 +67,7 @@ class HomeFragment : Fragment() {
                 chip?.let { chipView ->
                     when (chip.text) {
                         getString(R.string.chip_headlines) -> {
-                            dataHeadlines = Gson().fromJson(headlinesData, articleType)
-                            headlinesNewsAdapter = NewsHeadlinesDataAdapter(dataHeadlines)
-                            binding.rvNews.layoutManager = layoutManager
-                            binding.rvNews.adapter = headlinesNewsAdapter
+                            initHeadline()
                         }
                         getString(R.string.chip_detik) -> {
                             initVM("detik.com")
@@ -120,6 +113,25 @@ class HomeFragment : Fragment() {
                 binding.tvNotice.text = "Maaf, belum ada berita terbaru dari $domain"
                 binding.tvNotice.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun initHeadline() {
+        initLoading()
+        if (!dataHeadlines.isNullOrEmpty()) {
+            binding.rvNews.visibility = View.VISIBLE
+            binding.tvNotice.visibility = View.GONE
+            dataHeadlines = Gson().fromJson(headlinesData, articleType)
+            headlinesNewsAdapter = NewsHeadlinesDataAdapter(dataHeadlines)
+            val layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            binding.rvNews.layoutManager = layoutManager
+            binding.rvNews.adapter = headlinesNewsAdapter
+        }
+        else {
+            binding.rvNews.visibility = View.GONE
+            binding.tvNotice.text = "Maaf, terdapat kesalahan dalam mengambil data"
+            binding.tvNotice.visibility = View.VISIBLE
         }
     }
 

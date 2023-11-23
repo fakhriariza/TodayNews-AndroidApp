@@ -16,16 +16,8 @@
         <ImageView
             android:layout_width="@dimen/_110sdp"
             android:layout_height="@dimen/_110sdp"
-            android:background="@drawable/ic_logo"
+            android:background="@drawable/logo"
             android:layout_gravity="center_horizontal"/>
-        <TextView
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
-            android:text="@string/splash_text"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="@dimen/_16ssp"/>
     </LinearLayout>
 
 

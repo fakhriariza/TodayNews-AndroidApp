@@ -9,9 +9,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_logo"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_logo"
+        android:icon="@drawable/logo"
+        android:label="Tiara Jamil Wedding"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodayNews"
         tools:targetApi="31">
@@ -29,6 +29,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ToolbarCaptureActivity"
             android:exported="true">
         </activity>
     </application>

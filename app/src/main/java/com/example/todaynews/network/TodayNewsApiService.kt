@@ -1,27 +1,21 @@
 package com.example.todaynews.network
 
-import com.example.todaynews.HeadlinesData
+import com.example.todaynews.CountData
 import retrofit2.Call
 import retrofit2.http.*
 
 interface TodayNewsApiService {
 
-    @GET("top-headlines")
-    fun getHeadlinesData(
-        @Query("country") country: String,
-        @Query("apiKey") apiKey: String
-    ): Call<HeadlinesData?>?
+    @GET("count")
+    fun getCount(): Call<CountData?>?
 
-    @GET("everything")
-    fun getEverythingData(
-        @Query("domains") domains: String,
-        @Query("apiKey") apiKey: String
-    ): Call<HeadlinesData?>?
+    @GET("guest")
+    fun getGuest(
+        @Query("id") id: String
+    ): Call<CountData?>?
 
-    @GET("everything")
-    fun getSearchEverythingData(
-        @Query("q") q: String,
-        @Query("language") language: String,
-        @Query("apiKey") apiKey: String
-    ): Call<HeadlinesData?>?
+    @POST("addGuest")
+    fun postGuest(
+        @Query("id") id: String
+    ): Call<CountData?>?
 }

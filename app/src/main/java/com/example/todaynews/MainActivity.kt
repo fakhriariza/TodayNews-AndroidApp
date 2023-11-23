@@ -1,22 +1,52 @@
 package com.example.todaynews
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.MenuItem
+import android.os.Parcelable
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.todaynews.databinding.ActivityMainBinding
-import com.google.gson.Gson
+import com.google.zxing.client.android.Intents
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityVM
-    private var homeFragment: HomeFragment = HomeFragment()
-    private var searchFragment: SearchFragment = SearchFragment()
-    private var headlinesData: String? = null
-    private var searchData: String? = null
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (result.contents == null) {
+            val originalIntent = result.originalIntent
+            if (originalIntent == null) {
+                Log.d("MainActivity", "Cancelled scan")
+                Toast.makeText(this@MainActivity, "Cancelled", Toast.LENGTH_LONG).show()
+            } else if (originalIntent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION)) {
+                Log.d(
+                    "MainActivity",
+                    "Cancelled scan due to missing camera permission"
+                )
+                Toast.makeText(
+                    this@MainActivity,
+                    "Cancelled due to missing camera permission",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        } else {
+            scanBarcode(result.contents)
+            Toast.makeText(
+                this@MainActivity,
+                "Scanned: " + result.contents,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,62 +57,36 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainActivityVM::class.java]
         initData()
         initView()
-        fragmentManager()
-    }
-
-    private fun changeFragment(id: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-            .replace(R.id.fcvMainContainer, id, null)
-            .setReorderingAllowed(true).commit()
-    }
-
-    private fun fragmentManager() {
-        binding.bnvMainActivity.setOnItemSelectedListener { item: MenuItem ->
-            val itemId = item.itemId
-            if (itemId == R.id.navigation_home) {
-                changeFragment(homeFragment)
-                return@setOnItemSelectedListener true
-            } else if (itemId == R.id.navigation_add) {
-                changeFragment(searchFragment)
-                return@setOnItemSelectedListener true
-            }
-            false
-        }
     }
     private fun initData() {
         initLoading()
-        viewModel.fetchHeadlinesData()
-        viewModel.headlinesData.observe(this) {response: HeadlinesData ->
-            val data = response.data
+        viewModel.fetchCountData()
+        viewModel.countData.observe(this) {response: CountData ->
+            val data = response.totalGuest
             if (data != null) {
-                headlinesData = Gson().toJson(data)
-                homeFragment = HomeFragment.newInstance(headlinesData)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fcvMainContainer, homeFragment, null).commit()
+                binding.tvCountValue.text = "$data Orang"
             }
         }
     }
     private fun initView() {
         binding.ivRefresh.setOnClickListener {
-            initLoading()
             initData()
         }
-        binding.ivSearch.setOnClickListener {
-            initLoading()
-            if (binding.bnvMainActivity.selectedItemId == R.id.navigation_home) {
-                binding.bnvMainActivity.selectedItemId = R.id.navigation_add
-            }
-            val searchText = binding.etSearch.text.toString()
-            viewModel.fetchSearchData(searchText)
-            viewModel.searchData.observe(this) {response: HeadlinesData ->
-                val data = response.data
-                if (data != null) {
-                    searchData = Gson().toJson(data)
-                    searchFragment = SearchFragment.newInstance(searchData)
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fcvMainContainer, searchFragment, null).commit()
-                }
+        binding.bnvMainActivity.setOnClickListener {
+            scanToolbar()
+        }
+    }
+
+    private fun scanBarcode(barcodeNo: String) {
+        viewModel.fetchGuestData(barcodeNo)
+        viewModel.guestData.observe(this) {
+            if (it != null) {
+                val i = Intent(applicationContext, ScanResultActivity::class.java)
+                i.putExtra("data" , it as Parcelable)
+                i.putExtra("barcode" , barcodeNo)
+                startActivity(i)
+            } else {
+                Toast.makeText(this, "Data Tamu Tidak Ditemukan", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -93,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             binding.progressBar.visibility = View.GONE
         }, splashTime)
+    }
+
+    private fun scanToolbar() {
+        val options = ScanOptions().setCaptureActivity(ToolbarCaptureActivity::class.java)
+        barcodeLauncher.launch(options)
     }
 
 }

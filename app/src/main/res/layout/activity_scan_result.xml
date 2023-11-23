@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
+            android:background="@drawable/logo"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlMainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/logo">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="10dp"
+            android:text="Selamat Datang,"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_30ssp"
+            android:text="Fakhri Dwi"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvTitle"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18ssp"
+                tools:text="VIP"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_semibold"/>
+
+        </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/today_news_orange"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+</RelativeLayout>

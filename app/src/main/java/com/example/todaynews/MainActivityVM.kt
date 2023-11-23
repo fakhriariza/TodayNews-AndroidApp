@@ -8,62 +8,63 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivityVM: ViewModel() {
-    val headlinesData = MutableLiveData<HeadlinesData>()
-    val newsData = MutableLiveData<HeadlinesData>()
-    val searchData = MutableLiveData<HeadlinesData>()
+    val countData = MutableLiveData<CountData>()
+    val guestData = MutableLiveData<CountData>()
+    val postData = MutableLiveData<Boolean>()
     val retrofit = TodayNewsApi.getInstance(TodayNewsApiService::class.java)
     private val apiKey: String = "91436ca5008e422a995eca8ac8923380"
 
 
-    fun fetchHeadlinesData() {
-        val apiCall = retrofit.getHeadlinesData("id", apiKey)
-        apiCall?.enqueue(object : retrofit2.Callback<HeadlinesData?> {
+    fun fetchCountData() {
+        val apiCall = retrofit.getCount()
+        apiCall?.enqueue(object : retrofit2.Callback<CountData?> {
             override fun onResponse(
-                call: Call<HeadlinesData?>,
-                response: Response<HeadlinesData?>
+                call: Call<CountData?>,
+                response: Response<CountData?>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        headlinesData.value = it
+                        countData.value = it
                     }
                 }
             }
-            override fun onFailure(call: Call<HeadlinesData?>, t: Throwable) {
+            override fun onFailure(call: Call<CountData?>, t: Throwable) {
             }
         })
     }
-    fun fetchEverythingData(domain: String) {
-        val apiCall = retrofit.getEverythingData(domain, apiKey)
-        apiCall?.enqueue(object : retrofit2.Callback<HeadlinesData?> {
+    fun fetchGuestData(id: String) {
+        val apiCall = retrofit.getGuest(id)
+        apiCall?.enqueue(object : retrofit2.Callback<CountData?> {
             override fun onResponse(
-                call: Call<HeadlinesData?>,
-                response: Response<HeadlinesData?>
+                call: Call<CountData?>,
+                response: Response<CountData?>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        newsData.value = it
+                        guestData.value = it
                     }
                 }
             }
-            override fun onFailure(call: Call<HeadlinesData?>, t: Throwable) {
+            override fun onFailure(call: Call<CountData?>, t: Throwable) {
             }
         })
     }
 
-    fun fetchSearchData(q: String) {
-        val apiCall = retrofit.getSearchEverythingData(q, "id", apiKey)
-        apiCall?.enqueue(object : retrofit2.Callback<HeadlinesData?> {
+    fun submitGuestList(id: String) {
+        val apiCall = retrofit.postGuest(id)
+        apiCall?.enqueue(object : retrofit2.Callback<CountData?> {
             override fun onResponse(
-                call: Call<HeadlinesData?>,
-                response: Response<HeadlinesData?>
+                call: Call<CountData?>,
+                response: Response<CountData?>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        searchData.value = it
+                        postData.value = true
                     }
                 }
             }
-            override fun onFailure(call: Call<HeadlinesData?>, t: Throwable) {
+            override fun onFailure(call: Call<CountData?>, t: Throwable) {
+                postData.value = false
             }
         })
     }

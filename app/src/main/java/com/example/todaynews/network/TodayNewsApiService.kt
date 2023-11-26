@@ -1,21 +1,25 @@
 package com.example.todaynews.network
 
+import com.example.todaynews.BodyData
 import com.example.todaynews.CountData
+import com.example.todaynews.CountDataList
+import com.example.todaynews.DashboardData
 import retrofit2.Call
 import retrofit2.http.*
 
 interface TodayNewsApiService {
 
-    @GET("count")
-    fun getCount(): Call<CountData?>?
+    @GET("guests-attends")
+    fun getCount(): Call<DashboardData?>?
 
-    @GET("guest")
+    @POST("attend")
     fun getGuest(
-        @Query("id") id: String
+        @Body id: BodyData
     ): Call<CountData?>?
 
-    @POST("addGuest")
+    @FormUrlEncoded
+    @POST("attend")
     fun postGuest(
-        @Query("id") id: String
+        @Query("userID") id: String
     ): Call<CountData?>?
 }

@@ -9,13 +9,13 @@ import kotlinx.parcelize.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 @Keep
-data class CountData(
+data class CountDataList(
     @SerializedName("statusCode")
     val totalGuest: String? = "",
     @SerializedName("status")
     val status: String? = "",
     @SerializedName("data")
-    val data: Data? = null
+    val data: ArrayList<Data>
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize

@@ -59,13 +59,12 @@ class MainActivity : AppCompatActivity() {
         initView()
     }
     private fun initData() {
-        initLoading()
         viewModel.fetchCountData()
-        viewModel.countData.observe(this) {response: CountData ->
-            val data = response.totalGuest
-            if (data != null) {
-                binding.tvCountValue.text = "$data Orang"
-            }
+        viewModel.countData.observe(this) {response: DashboardData ->
+            val data = response.data?.totalCount
+            binding.tvCountValue.text = "$data Orang"
+            val listData = response.data?.userAttend
+
         }
     }
     private fun initView() {
@@ -81,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchGuestData(barcodeNo)
         viewModel.guestData.observe(this) {
             if (it != null) {
+                println("masuk sini gak")
                 val i = Intent(applicationContext, ScanResultActivity::class.java)
                 i.putExtra("data" , it as Parcelable)
                 i.putExtra("barcode" , barcodeNo)
@@ -89,14 +89,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Data Tamu Tidak Ditemukan", Toast.LENGTH_LONG).show()
             }
         }
-    }
-
-    private fun initLoading() {
-        val splashTime: Long = 2000
-        binding.progressBar.visibility = View.VISIBLE
-        Handler().postDelayed({
-            binding.progressBar.visibility = View.GONE
-        }, splashTime)
     }
 
     private fun scanToolbar() {

@@ -1,8 +1,10 @@
 package com.example.todaynews
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,8 +35,14 @@ class ScanResultActivity : AppCompatActivity() {
                 tvStatus.text = guestData?.data?.status
                 if (guestData?.data?.status?.contains("VIP") == true) {
                     rootContainer.background = resources.getDrawable(R.color.blue)
-                    tvName.setTextColor(resources.getColor(R.color.white))
-                    tvStatus.setTextColor(resources.getColor(R.color.white))
+//                    tvName.setTextColor(resources.getColor(R.color.white))
+//                    tvStatus.setTextColor(resources.getColor(R.color.white))
+//                    tvTitle.setTextColor(resources.getColor(R.color.white))
+                }
+                btnBack.setOnClickListener {
+                    val i = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(i)
+                    finish()
                 }
             }
         }

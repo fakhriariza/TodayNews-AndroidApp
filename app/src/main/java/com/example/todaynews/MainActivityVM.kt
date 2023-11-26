@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivityVM: ViewModel() {
-    val countData = MutableLiveData<CountData>()
+    val countData = MutableLiveData<DashboardData>()
     val guestData = MutableLiveData<CountData>()
     val postData = MutableLiveData<Boolean>()
     val retrofit = TodayNewsApi.getInstance(TodayNewsApiService::class.java)
@@ -17,10 +17,10 @@ class MainActivityVM: ViewModel() {
 
     fun fetchCountData() {
         val apiCall = retrofit.getCount()
-        apiCall?.enqueue(object : retrofit2.Callback<CountData?> {
+        apiCall?.enqueue(object : retrofit2.Callback<DashboardData?> {
             override fun onResponse(
-                call: Call<CountData?>,
-                response: Response<CountData?>
+                call: Call<DashboardData?>,
+                response: Response<DashboardData?>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -28,24 +28,29 @@ class MainActivityVM: ViewModel() {
                     }
                 }
             }
-            override fun onFailure(call: Call<CountData?>, t: Throwable) {
+            override fun onFailure(call: Call<DashboardData?>, t: Throwable) {
             }
         })
     }
     fun fetchGuestData(id: String) {
-        val apiCall = retrofit.getGuest(id)
+        val apiCall = retrofit.getGuest(BodyData(id))
         apiCall?.enqueue(object : retrofit2.Callback<CountData?> {
             override fun onResponse(
                 call: Call<CountData?>,
                 response: Response<CountData?>
             ) {
+                println("kenapa disini ${response.body()?.status}")
                 if (response.isSuccessful) {
                     response.body()?.let {
                         guestData.value = it
                     }
+                } else {
+                    response.body()?.status
+                    println("masuk sini gak3 ${response.body()}")
                 }
             }
             override fun onFailure(call: Call<CountData?>, t: Throwable) {
+                println("masuk sini gak2")
             }
         })
     }

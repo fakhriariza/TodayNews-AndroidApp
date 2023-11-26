@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object TodayNewsApi {
-    const val BASE_URL = "https://newsapi.org/v2/"
+    const val BASE_URL = "https://teduh.my.id/api/wedding/v1/"
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()

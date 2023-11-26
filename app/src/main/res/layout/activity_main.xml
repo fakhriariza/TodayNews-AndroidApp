@@ -71,17 +71,19 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="220dp"
             android:layout_below="@+id/count"
             android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginHorizontal="20dp"/>
     </RelativeLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <RelativeLayout
         android:id="@+id/bnvMainActivity"
-        android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_110sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="@dimen/_20sdp"
@@ -95,24 +97,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tvScanBarcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scan Barcode"
-                android:textSize="@dimen/_12ssp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white"/>
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="13dp"
-                android:background="@drawable/scan" />
+                android:background="@drawable/barcode_white" />
         </RelativeLayout>
+    </RelativeLayout>
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="#0156A9"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
 </RelativeLayout>

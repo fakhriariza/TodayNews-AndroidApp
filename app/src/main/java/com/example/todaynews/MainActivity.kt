@@ -64,11 +64,12 @@ class MainActivity : AppCompatActivity() {
             val data = response.data?.totalCount
             binding.tvCountValue.text = "$data Orang"
             val listData = response.data?.userAttend
-
+            binding.rvCount.adapter = listData?.let { CountAdapter(it) }
         }
     }
     private fun initView() {
         binding.ivRefresh.setOnClickListener {
+            initLoading()
             initData()
         }
         binding.bnvMainActivity.setOnClickListener {
@@ -94,6 +95,14 @@ class MainActivity : AppCompatActivity() {
     private fun scanToolbar() {
         val options = ScanOptions().setCaptureActivity(ToolbarCaptureActivity::class.java)
         barcodeLauncher.launch(options)
+    }
+
+    private fun initLoading() {
+        val splashTime: Long = 2000
+        binding.progressBar.visibility = View.VISIBLE
+        Handler().postDelayed({
+            binding.progressBar.visibility = View.GONE
+        }, splashTime)
     }
 
 }

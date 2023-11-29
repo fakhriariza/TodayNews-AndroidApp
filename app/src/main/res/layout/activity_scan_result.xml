@@ -61,7 +61,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_30ssp"
+            android:textSize="@dimen/_50ssp"
             android:text="Fakhri Dwi"
             android:textAlignment="center"
             android:layout_centerHorizontal="true"
@@ -90,19 +90,6 @@
         </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnBack"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/round_button_accent"
-        android:layout_marginHorizontal="30dp"
-        android:text="Kembali Scan"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true">
-
-    </androidx.appcompat.widget.AppCompatButton>
 
 
     <ProgressBar

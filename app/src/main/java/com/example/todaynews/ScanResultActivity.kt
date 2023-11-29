@@ -39,11 +39,6 @@ class ScanResultActivity : AppCompatActivity() {
 //                    tvStatus.setTextColor(resources.getColor(R.color.white))
 //                    tvTitle.setTextColor(resources.getColor(R.color.white))
                 }
-                btnBack.setOnClickListener {
-                    val i = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(i)
-                    finish()
-                }
             }
         }
         if (intent.hasExtra("barcode")) {

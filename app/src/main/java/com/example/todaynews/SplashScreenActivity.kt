@@ -16,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val splashTime: Long = 3000
         Handler().postDelayed({
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, ScanResultFirebaseActivity::class.java)
                 startActivity(intent)
                 finish()
         }, splashTime)

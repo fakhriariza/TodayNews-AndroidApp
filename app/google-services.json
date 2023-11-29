@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "891341353969",
+    "project_id": "tiara-jamil-wedding",
+    "storage_bucket": "tiara-jamil-wedding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891341353969:android:43234bf2f2570719eb8a50",
+        "android_client_info": {
+          "package_name": "com.example.todaynews"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_S-XlNQggGWKHx1M-eKGQXr6QxkKpLVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

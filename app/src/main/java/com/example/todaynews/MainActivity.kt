@@ -1,5 +1,6 @@
 package com.example.todaynews
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,14 +11,24 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.todaynews.databinding.ActivityMainBinding
+import com.google.firebase.Firebase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.database
 import com.google.zxing.client.android.Intents
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityVM
+//    private val mahasiswa: Mahasiswa? = null
+
+    var mDatabase: DatabaseReference? = null
+    private var mFirebaseDatabase: FirebaseDatabase? = null
+    private var mFirebaseReference: DatabaseReference? = null
 
     private val barcodeLauncher = registerForActivityResult(
         ScanContract()
@@ -55,6 +66,8 @@ class MainActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this)[MainActivityVM::class.java]
+        mFirebaseDatabase = FirebaseDatabase.getInstance()
+        mFirebaseReference = mFirebaseDatabase?.reference
         initData()
         initView()
     }
@@ -67,8 +80,12 @@ class MainActivity : AppCompatActivity() {
             binding.rvCount.adapter = listData?.let { CountAdapter(it) }
         }
     }
+    @SuppressLint("StringFormatInvalid")
     private fun initView() {
         binding.ivRefresh.setOnClickListener {
+//            val i = Intent(applicationContext, ScanResultFirebaseActivity::class.java)
+//            startActivity(i)
+            finish()
             initLoading()
             initData()
         }
@@ -81,7 +98,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchGuestData(barcodeNo)
         viewModel.guestData.observe(this) {
             if (it != null) {
-                println("masuk sini gak")
+                val id = mFirebaseReference?.push()?.key
+                val name = it.data?.namaUndangan
+                val status = it.data?.status
+                val firebaseData = FirebaseData(id, name, status)
+                if (id != null) {
+                    mFirebaseReference?.child(id)?.setValue(firebaseData)
+                }
                 val i = Intent(applicationContext, ScanResultActivity::class.java)
                 i.putExtra("data" , it as Parcelable)
                 i.putExtra("barcode" , barcodeNo)

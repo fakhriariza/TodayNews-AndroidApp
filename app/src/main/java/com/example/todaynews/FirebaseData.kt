@@ -10,8 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Keep
 data class FirebaseData(
-    @SerializedName("id")
-    val id: String? = "",
+//    @SerializedName("id")
+//    val id: String? = "",
     @SerializedName("name")
     val name: String? = "",
     @SerializedName("status")

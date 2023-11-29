@@ -101,9 +101,9 @@ class MainActivity : AppCompatActivity() {
                 val id = mFirebaseReference?.push()?.key
                 val name = it.data?.namaUndangan
                 val status = it.data?.status
-                val firebaseData = FirebaseData(id, name, status)
+                val firebaseData = FirebaseData(name, status)
                 if (id != null) {
-                    mFirebaseReference?.child(id)?.setValue(firebaseData)
+                    mFirebaseReference?.child("users")?.setValue(firebaseData)
                 }
                 val i = Intent(applicationContext, ScanResultActivity::class.java)
                 i.putExtra("data" , it as Parcelable)
